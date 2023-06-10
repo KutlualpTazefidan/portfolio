@@ -1,0 +1,89 @@
+.enter-button {
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  /* box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px; */
+  /* border-radius: 3rem; */
+  padding: 0rem 2rem 0rem 2rem;
+  user-select: none;
+  animation-delay: 0.05s;
+  /* width: 10rem; */
+  /* height: 5rem; */
+  /* animation: box-shadow-opacity-animation 1s forwards; */
+  z-index: 1;
+}
+.enter-button-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.enter-button-text-loading {
+  animation-delay: 0s;
+  animation: opacity-animation 0.1s forwards;
+  margin: 0;
+}
+.enter-button-text-enter {
+  position: absolute;
+  /* top: 50%; */
+  /* left: 50%; */
+  /* transform: translateX(-50%) translateY(-50%); */
+  opacity: 0;
+  animation: opacity-animation 1s reverse;
+  animation-fill-mode: forwards;
+  animation-delay: 0.05s;
+  /* width: 1rem; */
+  /* height: 1rem; */
+  margin: 0 3rem 0 3rem;
+  /* margin: 0; */
+}
+
+.enter-button:before,
+.enter-button:after,
+.enter-button-container:before,
+.enter-button-container:after {
+  content: "";
+  position: absolute;
+  width: 0.3rem;
+  height: 0.3rem;
+  background: rgb(0, 0, 0);
+  transition: 1s;
+  mix-blend-mode: hue;
+}
+
+.enter-button:before {
+  top: -0rem;
+  left: -0rem;
+}
+.enter-button:after {
+  top: -0rem;
+  right: -0rem;
+}
+
+.enter-button-container:before {
+  bottom: -0.1rem;
+  left: -2rem;
+}
+.enter-button-container:after {
+  bottom: -0.1rem;
+  right: -2rem;
+}
+
+.enter-button:hover:before,
+.enter-button:hover:after,
+.enter-button:hover span:before,
+.enter-button:hover span:after {
+  width: calc(1rem / 2);
+  height: calc(0.4rem / 2);
+}
+
+@keyframes opacity-animation {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

@@ -1,0 +1,115 @@
+import { useEffect, useRef } from "react";
+import styles from "./treeoflife.module.css";
+export default function TreeOfLife() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  //The first branch being drawn
+  useEffect(() => {
+    const canvas = canvasRef.current;
+
+    const ctx = canvas?.getContext("2d");
+
+    function random(min: number, max: number) {
+      return Math.random() * (max - min) + min;
+    }
+
+    //The main draw function
+    function drawTree(
+      startX: number,
+      startY: number,
+      length: number,
+      angle: number,
+      branchWidth: number,
+      hue: number,
+      sat: number,
+      light: number
+    ) {
+      if (ctx) {
+        //Sets line width
+        ctx.lineWidth = branchWidth;
+
+        //Starts a path
+        ctx.beginPath();
+
+        //Adds current canvas to call stack
+        ctx.save();
+
+        //Uses template literals to get the color of the nodes (in HSL)
+        ctx.strokeStyle = `hsl(${random(
+          hue - 10,
+          hue + 10
+        )}, ${sat}%, ${light}%`;
+        ctx.fillStyle = `hsl(${hue}, ${sat}%, ${light}%`;
+
+        //Translates the branch and rotates it
+        ctx.translate(startX, startY);
+        ctx.rotate((angle * Math.PI) / 180);
+        ctx.moveTo(0, 0);
+        ctx.lineTo(0, -length);
+        ctx.stroke();
+
+        // Some nice shadow blur and color
+        // ctx.shadowBlur = 15;
+        // ctx.shadowColor = "rgba(0, 0, 0, 0.4)";
+
+        //Returns the last canvas
+        if (length < 10) {
+          ctx.restore();
+          return;
+        }
+
+        // The recursive part: when a branch is long enough,, draw two branches on it's end in different angles
+        // Changes the hue, saturation and lightness to create a gradient based on where the node is (nearer the top = greener)
+        drawTree(
+          0,
+          //Starts at the end of the previous branch
+          -length,
+          //A little bit smaller
+          length * 0.8,
+          //Angles it
+          angle - 12.5,
+          //Makes it thinner
+          branchWidth * 0.8,
+          //And adjusts the colors
+          (hue += 2),
+          100,
+          (light += 1)
+        );
+        drawTree(
+          0,
+          //Starts at the end of the previous branch
+          -length,
+          //A little bit smaller
+          length * 0.8,
+          //Angles it
+          angle + 12.5,
+          //Makes it thinner
+          branchWidth * 0.8,
+          //And adjusts the colors
+          (hue += 2),
+          100,
+          (light += 1)
+        );
+
+        ctx.restore();
+      }
+    }
+    if (ctx) {
+      // console.log("first render try of lot");
+      drawTree(500, 550, 80, 0, 5, 30, 100, 29);
+    }
+  }, []);
+  return (
+    <>
+      <canvas
+        ref={canvasRef}
+        className={styles["tree-of-life"]}
+        id="tree-of-life"
+        width="1000"
+        height="800"
+      ></canvas>
+
+      {/* <p id="title">A weeping willow fractal tree</p> */}
+    </>
+  );
+}
