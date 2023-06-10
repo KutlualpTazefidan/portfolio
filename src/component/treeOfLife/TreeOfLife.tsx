@@ -26,7 +26,6 @@ export default function TreeOfLife() {
       // Returns when the branch is too small
       //   console.log("length", length);
       if (branchWidth < 1) {
-        console.log("reutrn");
         return;
       }
       // Create a new path element
@@ -109,7 +108,7 @@ export default function TreeOfLife() {
       // The first branch being drawn
       const { width, height } = svg.getBoundingClientRect();
 
-      drawTree(width / 2, (height * 3.1) / 4, 120, -90, 10, 35, 200, 29, 2);
+      drawTree(width / 2, (height * 3.1) / 4, 120, -90, 10, 35, 200, 29, 100);
     }
   }, []);
   return (

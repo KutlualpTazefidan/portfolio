@@ -4,13 +4,13 @@ import { useEffect, useState } from "react";
 import WelcomeButton from "./button/WelcomeButton";
 
 export default function WelcomeContainer() {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     setLoading(false);
-  //   }, 2000);
-  // }, []);
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+  }, []);
   return (
     <div className={styles["welcome-message-container"]}>
       <span className={styles["welcome-message"]}>The Tree of Life</span>
@@ -23,7 +23,7 @@ export default function WelcomeContainer() {
       {loading ? (
         <>
           <div className={styles["loader-container"]}>
-            <CircleLoader
+            {/* <CircleLoader
               color={"#000000"}
               // loading={loading}
               size={300}
@@ -31,16 +31,16 @@ export default function WelcomeContainer() {
               data-testid="loader"
               className={styles["loading-icon-static"]}
               speedMultiplier={0.7}
-            />
+            /> */}
           </div>
           <div className={styles["loading-static-div"]}>
-            <span>loading </span>
+            <span>loading</span>
           </div>
         </>
       ) : (
         <>
           <div className={styles["loader-container"]}>
-            <CircleLoader
+            {/* <CircleLoader
               color={"#000000"}
               // loading={loading}
               size={300}
@@ -48,7 +48,7 @@ export default function WelcomeContainer() {
               data-testid="loader"
               className={styles["loading-icon"]}
               speedMultiplier={0.7}
-            />
+            /> */}
           </div>
           <WelcomeButton />
         </>

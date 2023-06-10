@@ -49,6 +49,8 @@
   justify-content: center;
   padding: 0rem 2rem 0rem 2rem;
   user-select: none;
+  font-size: 1rem;
+  animation: opacity-animation-loop 2s infinite;
 }
 
 .loader-container {
@@ -61,6 +63,18 @@
 
 @keyframes opacity-animation {
   0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes opacity-animation-loop {
+  0% {
+    opacity: 0;
+  }
+  50% {
     opacity: 1;
   }
   100% {

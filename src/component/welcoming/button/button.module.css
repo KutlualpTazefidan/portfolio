@@ -19,12 +19,12 @@
   align-items: center;
   justify-content: center;
 }
-
+/* 
 .enter-button-text-loading {
   animation-delay: 0s;
   animation: opacity-animation 0.1s forwards;
   margin: 0;
-}
+} */
 .enter-button-text-enter {
   position: absolute;
   /* top: 50%; */
@@ -40,7 +40,7 @@
   /* margin: 0; */
 }
 
-.enter-button:before,
+/* .enter-button:before,
 .enter-button:after,
 .enter-button-container:before,
 .enter-button-container:after {
@@ -77,7 +77,7 @@
 .enter-button:hover span:after {
   width: calc(1rem / 2);
   height: calc(0.4rem / 2);
-}
+} */
 
 @keyframes opacity-animation {
   0% {
