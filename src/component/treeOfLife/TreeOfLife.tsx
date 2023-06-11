@@ -1,7 +1,6 @@
 import { useEffect, useRef } from "react";
 import styles from "./treeoflife.module.css";
 export default function TreeOfLife() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
 
   //The first branch being drawn
@@ -20,7 +19,8 @@ export default function TreeOfLife() {
       hue: number,
       sat: number,
       light: number,
-      delay: number
+      delay: number,
+      iteration: number
     ) {
       const randomAngle = random(angle - 45, angle + 45);
       // Returns when the branch is too small
@@ -39,8 +39,20 @@ export default function TreeOfLife() {
       var fillColor = `hsl(${hue}, ${sat}%, ${light}%)`;
 
       // Construct the path data
+      const factor = length * 0.30125;
+      const quadraticFactor = 1.5; // Adjust the factor to control the rate of decrease
+      const quadraticAngleMinus = Math.max(
+        -360,
+        angle - Math.pow(iteration, 2) * quadraticFactor
+      );
+      const quadraticAnglePlus = Math.min(
+        270,
+        angle + Math.pow(iteration, 2) * quadraticFactor
+      );
+
       const rotationAngleX = Math.cos((angle * Math.PI) / 180);
       const rotationAngleY = Math.sin((angle * Math.PI) / 180);
+
       var pathData = `M${startX},${startY} L${
         startX + rotationAngleX * length
       },${startY + rotationAngleY * length}`;
@@ -51,8 +63,6 @@ export default function TreeOfLife() {
       path.setAttribute("fill", fillColor);
       path.setAttribute("stroke-width", branchWidth.toString());
 
-      //   path.setAttribute("transform", `rotate(${5.5}, ${startX}, ${startY})`);
-
       // Append the path to the SVG
       svg?.appendChild(path);
       // The recursive part: draw two branches on the end of the current branch in different angles
@@ -62,23 +72,25 @@ export default function TreeOfLife() {
           startX: startX + rotationAngleX * length,
           startY: startY + rotationAngleY * length,
           length: length * 0.8,
-          angle: angle - 25,
+          angle: angle - 18,
           branchWidth: branchWidth * 0.82,
           hue: hue + 3.5,
           light: light + 4,
           sat: sat,
           delay: delay,
+          iteration: iteration++,
         },
         {
           startX: startX + rotationAngleX * length,
           startY: startY + rotationAngleY * length,
           length: length * 0.8,
-          angle: angle + 25,
+          angle: angle + 18,
           branchWidth: branchWidth * 0.82,
           hue: hue + 3.5,
           light: light + 4,
           sat: sat,
           delay: delay,
+          iteration: iteration++,
         },
       ];
 
@@ -93,7 +105,8 @@ export default function TreeOfLife() {
             branch.hue,
             branch.sat,
             branch.light,
-            branch.delay
+            branch.delay,
+            branch.iteration
           );
         }, delay);
       }
@@ -108,7 +121,18 @@ export default function TreeOfLife() {
       // The first branch being drawn
       const { width, height } = svg.getBoundingClientRect();
 
-      drawTree(width / 2, (height * 3.1) / 4, 120, -90, 10, 35, 200, 29, 100);
+      drawTree(
+        width / 2,
+        (height * 3.1) / 4,
+        120,
+        -90,
+        10,
+        35,
+        200,
+        29,
+        100,
+        0
+      );
     }
   }, []);
   return (
