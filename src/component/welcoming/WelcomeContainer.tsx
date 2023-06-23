@@ -13,7 +13,7 @@ export default function WelcomeContainer() {
   }, []);
   return (
     <div className={styles["welcome-message-container"]}>
-      <span className={styles["welcome-message"]}>The Tree of Life</span>
+      <span className={styles["welcome-message"]}>Beyond Space and Time</span>
       <span className={styles["portfolio-name2"]}>Kutlualp Tazefidan</span>
       <span className={styles["welcome-note"]}>
         This is a proof of concept.
