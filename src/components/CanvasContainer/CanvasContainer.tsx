@@ -17,7 +17,7 @@ export default function CanvasContainer() {
         >
           <ambientLight intensity={0.55} color={"#ffffff"} />
           <directionalLight
-            position={[0, 3, 0]}
+            position={[3, 3, 0]}
             intensity={1}
             castShadow
             shadow-mapSize={1024}

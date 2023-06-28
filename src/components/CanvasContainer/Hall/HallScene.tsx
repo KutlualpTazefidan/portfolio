@@ -1,34 +1,36 @@
 import Load3dObject from "@/components/utils/canvas/Load3dObject";
 import Pillars from "./Pillars";
+import { useFrame, useThree } from "@react-three/fiber";
+import Walls from "./Walls";
+import Floor from "./Floor";
+import SphereHolder from "./SphereHolder";
 
 export default function HallScene() {
+  const { raycaster, scene, camera, viewport } = useThree();
+  console.log(scene);
   return (
     <>
-      <Load3dObject
-        objectName="FloorForPillars"
-        assetPath="./assets/imports/FloorForPillars.glb"
-        scale={1.0}
-        position={[0, 0, 0]}
-      />
-      <Load3dObject
-        objectName="Pillar"
-        assetPath="./assets/imports/Pillar.glb"
-        scale={1.0}
-        position={[0, 0, 0]}
-      />
+      <mesh
+        scale={[1, 1, 1]}
+        position={[0, 2, 0]}
+        rotation={[0, Math.PI / 4, 0]}
+      >
+        <boxGeometry />
+        <meshStandardMaterial color={"#964B00"} />
+      </mesh>
+      <Walls />
       <Pillars />
-      {/* <Load3dObject
-        objectName="Wall"
-        assetPath="./assets/imports/Wall.glb"
-        scale={1.0}
-        position={[0, 0, 0]}
-      />
-      <Load3dObject
-        objectName="SphereHolder"
-        assetPath="./assets/imports/SphereHolder.glb"
-        scale={1.0}
-        position={[0, 0, 0]}
-      /> */}
+      <Floor />
+      <SphereHolder />
     </>
   );
+}
+
+{
+  /* <Load3dObject
+  objectName="SphereHolder"
+  assetPath="./assets/imports/SphereHolder.glb"
+  scale={0.25}
+  position={[0, -0.3, -6]}
+/> */
 }
