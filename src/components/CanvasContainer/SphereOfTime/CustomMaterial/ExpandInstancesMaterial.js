@@ -1,10 +1,16 @@
 // Following the tut of  Konstantin84UKR THREE_CUBE_Geometry_Proximity Public
 
-import { Vector2, MeshPhysicalMaterial, ShaderMaterial, Vector3 } from "three";
+import {
+  Vector2,
+  MeshPhysicalMaterial,
+  MeshToonMaterial,
+  ShaderMaterial,
+  Vector3,
+} from "three";
 import { noise } from "./noise.js";
 import { extend } from "@react-three/fiber";
 
-export class ExpandInstancesMaterial extends MeshPhysicalMaterial {
+export class ExpandInstancesMaterial extends MeshToonMaterial {
   constructor({ color, wireframe, uniforms }) {
     super({ color, wireframe });
     this.uniforms = uniforms;
@@ -77,9 +83,15 @@ export class ExpandInstancesMaterial extends MeshPhysicalMaterial {
             float distance =  clamp(distance(positionI, u_pointPosition)/u_distanceEffect + N,0.0,1.0);
             // float timeFactor = 100.0* u_time * 1.0 * (1.0 - distance) * mixfactor;
             // float timeFactor = (sin(u_time*50.0) * 1.0 * (1.0 - distance) * mixfactor) * exp(-0.3 * u_time) ;
-            float timeFactor =1.0* (sin(u_time) * 1.0 * (1.0 - distance) * mixfactor)* exp(-0.3 * u_time);
-            vec3 positionMix = mix(vec3(0),positionI * N * vec3(u_scaleEffect), (1.0 - distance )*10000.1* timeFactor * mixfactor);
-            
+            float timeFactor = sin(fract(u_time*10.0)*2.0*3.14) * 0.05*(1.0 - distance) * mixfactor;
+            // vec3 positionOffset = (length(direction) > 0.0) ? normalize(direction) * 0.01 : vec3(0.0);
+            // vec3 positionOffset = mix(vec3(0),positionI * vec3(u_scaleEffect), (1.0 - distance) *0.001);
+            // vec3 positionMix = positionOffset ;
+            // vec3 positionMix = mix(vec3(0),positionI * N * vec3(u_scaleEffect), (1.0 - distance ) * mixfactor);
+            // vec3 positionMix = mix(vec3(0),positionI , (1.0 - distance)*0.001 );
+            vec3 direction = normalize(vec3(u_pointPosition.x - positionI.x, u_pointPosition.y - positionI.y, u_pointPosition.z - positionI.z));
+            vec3 repulsion = vec3(direction.y, -direction.x, 0.0);
+            vec3 positionMix = mix(vec3(0),positionI + timeFactor*repulsion * (1.0 - distance)*3000000.0,distance*0.0001 );
             // Scale  
             mat4 scaleInstance = scale(1.0 + (1.0- distance) *0.01* timeFactor * mixfactor);   
 

@@ -1,8 +1,8 @@
 "use client";
 import Image from "next/image";
 import styles from "./page.module.css";
-import WelcomeContainer from "@/component/welcoming/WelcomeContainer";
-import CanvasContainer from "@/component/CanvasContainer/CanvasContainer";
+import WelcomeContainer from "@/components/welcoming/WelcomeContainer";
+import CanvasContainer from "@/components/CanvasContainer/CanvasContainer";
 
 export default function Home() {
   // handling or testing loading

@@ -4,6 +4,7 @@ import { Canvas, useThree } from "@react-three/fiber";
 import SphereOfTime from "./SphereOfTime/SphereOfTime";
 import Controls from "./Controls/OrbitControls";
 import { OrbitControls } from "@react-three/drei";
+import HallScene from "./Hall/HallScene";
 export default function CanvasContainer() {
   const sceneContainer = useRef<HTMLDivElement>(null);
   return (
@@ -14,7 +15,8 @@ export default function CanvasContainer() {
           className={styles.canvas3d}
           shadows
         >
-          <SphereOfTime />
+          <HallScene />
+          {/* <SphereOfTime /> */}
           <Controls orbitControlState={true} />
         </Canvas>
       </div>
