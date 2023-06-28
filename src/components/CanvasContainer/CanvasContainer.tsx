@@ -15,6 +15,13 @@ export default function CanvasContainer() {
           className={styles.canvas3d}
           shadows
         >
+          <ambientLight intensity={0.55} color={"#ffffff"} />
+          <directionalLight
+            position={[0, 3, 0]}
+            intensity={1}
+            castShadow
+            shadow-mapSize={1024}
+          />
           <HallScene />
           {/* <SphereOfTime /> */}
           <Controls orbitControlState={true} />
