@@ -35,3 +35,10 @@ export default function Load3dObject({
     </>
   );
 }
+
+export function load3dGeometry(assetPath: string) {
+  const { geometry, materials, animations } = Import3dObject(
+    assetPath as string
+  );
+  return geometry;
+}
