@@ -205,7 +205,7 @@ export default function SphereOfTime() {
     scene.add(helperBox);
   }
   scene.updateMatrixWorld();
-  console.log(scene);
+  // console.log(scene);
 
   let timeSinceReset = 0;
 
